@@ -11,9 +11,14 @@
 # Ignore the default SQLite database.
 /db/*
 
-
 # Ignore all logfiles and tempfiles.
 config.ru
 /log/*.log
 /tmp
 config/database.yml
+Gemfile.lock
+doc/api
+doc/app
+*.swp
+*~
+.DS_Store
