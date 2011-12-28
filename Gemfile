@@ -23,7 +23,7 @@ gem 'jquery-rails'
 group :development do
   gem 'rspec-rails', '2.6.1'
   gem 'spin'
-  gem 'kicker'
+#  gem 'kicker'
 end
 
 group :test do

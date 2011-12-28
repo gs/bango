@@ -45,13 +45,8 @@ namespace :db do
   end
 end
 
-# after "deploy:update_code", :bundle_install
-# desc "install the necessary prereqisites"
-# task :bundle_install, :roles => :app do
-#   run "cd #{applicationdir}/current && bundle install"
-# end
-
 set :chmod755, "app config db lib public vendor script script/* public/disp*"
 set :use_sudo, false
 
 after "deploy:finalize_update", "db:symlink"
+after 'deploy:update_code', "deploy:cleanup"
