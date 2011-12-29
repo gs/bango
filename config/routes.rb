@@ -1,12 +1,12 @@
 Bango::Application.routes.draw do
 
-  get "users/new"
-
   root :to => "pages#home"
   match "/contact" => "pages#contact"
   match "/about" => "pages#about"
   match "/help" => "pages#help"
   match "/signup" => "users#new"
+
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
