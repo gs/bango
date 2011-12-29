@@ -139,7 +139,11 @@ td.sidebar {
 }
 
 
+ /*Sign up form*/
 
+ div.fields, div.actions {
+   margin-bottom: 10px;
+ }
 
 
 
