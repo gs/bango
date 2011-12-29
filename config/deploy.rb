@@ -33,20 +33,26 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
+
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-end
 
-namespace :db do
-  task :symlink, :except => { :no_release => true } do
+  desc "Sync the public/assets directory."
+  task :assetss do
+    system "rsync -vr --exclude='.DS_Store' public/assets #{user}@#{application}:#{shared_path}/"
+  end
+
+  desc "Shared symlinks db, assets, config.ru"
+  task :share_symlink, :except => { :no_release => true } do
       run "ln -nfs #{applicationdir}/shared/config/database.yml #{release_path}/config/database.yml"
       run "ln -nfs #{applicationdir}/shared/config.ru #{release_path}/config.ru"
+      run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
   end
+
 end
 
 set :chmod755, "app config db lib public vendor script script/* public/disp*"
 set :use_sudo, false
 
-after "deploy:finalize_update", "db:symlink"
-after 'deploy:update_code', "deploy:cleanup"
+after "deploy:update_code", "deploy:share_symlink"
