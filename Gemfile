@@ -7,6 +7,7 @@ gem 'therubyracer'
 
 gem 'capistrano'
 gem 'mysql2'
+gem 'gravatar_image_tag'
 
 
 # Gems used only for assets and not required
