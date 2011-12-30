@@ -1,12 +1,15 @@
 Bango::Application.routes.draw do
 
   root :to => "pages#home"
+  resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
+
   match "/contact" => "pages#contact"
   match "/about" => "pages#about"
   match "/help" => "pages#help"
   match "/signup" => "users#new"
-
-  resources :users
+  match "/signin" => "sessions#new"
+  match "/signout" => "sessions#destroy"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
