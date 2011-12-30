@@ -8,6 +8,7 @@ gem 'therubyracer'
 gem 'capistrano'
 gem 'mysql2'
 gem 'gravatar_image_tag'
+gem 'will_paginate'
 
 
 # Gems used only for assets and not required
@@ -26,6 +27,7 @@ group :development do
   gem 'spin'
   gem 'annotate', :git => 'git://github.com/jeremyolliver/annotate_models.git', :branch => 'rake_compatibility'
   gem 'pry'
+  gem 'faker'
 end
 
 group :test do
