@@ -107,4 +107,89 @@ describe UsersController do
      end
     end
   end
+
+  describe "GET 'edit'" do
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+
+    it "should be successfull" do
+      get :edit, :id => @user
+      response.should be_success
+    end
+
+    it "should have a right title" do
+      get :edit, :id => @user
+      response.should have_selector("title", :content => "Edit")
+    end
+
+    it "should have a link to change Gravatar" do
+      get :edit, :id => @user
+      response.should have_selector("a", :href => 'http://gravatar.com/emails',
+                                         :content => "Change")
+    end
+  end
+
+  describe "PUT 'update'" do
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+
+    describe "failure" do
+      before(:each) do
+        @attr = {:email => "", :name => "", :password_confirmation => ""}
+      end
+
+      it "should re-render the page" do
+        put :update, :id => @user, :user => @attr
+        response.should render_template('edit')
+      end
+    end
+
+      it "should have the right title" do
+        put :update, :id => @user, :user => @attr
+        response.should have_selector("title", :content => "Update")
+      end
+
+    describe "success" do
+
+      before(:each) do
+        @attr = { :name => "New name", :email => "john@fatbuu.com", :password => "fuubarr", :password_confirmation => "fuubarr" }
+      end
+
+      it "should change user attributes" do
+        put :update, :id => @user, :user => @attr
+        user = assigns(:user)
+        @user.reload
+        @user.name.should == user.name
+        @user.email.should == user.email
+        @user.encrypted_password.should == user.encrypted_password
+        response.should redirect_to(user_path(@user))
+      end
+
+      it "should have flash msg" do
+        put :update, :id => @user, :user => @attr
+        flash[:success].should =~ /updated/i
+      end
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

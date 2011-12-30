@@ -1,0 +1,12 @@
+<h1>Edit user</h1>
+
+<%= form_for @user do |f| -%>
+  <%= render 'fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Update", :disable_with => 'Updating...' %>
+  </div>
+<% end -%>
+<div>
+  <%= gravatar_for @user %>
+  <%= link_to "Change", 'http://gravatar.com/emails', { :target=>'_blank' } %>
+</div>
