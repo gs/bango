@@ -175,6 +175,26 @@ describe UsersController do
       end
     end
   end
+
+  describe "anauthorized access to edit/update" do
+
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    it "should deny to 'edit' action" do
+      get :edit, :id => @user
+      response.should redirect_to(signin_path)
+      flash[:notice].should =~ /please/i
+    end
+
+    it "should deny to 'update' action" do
+      put :update, :id => @user.id, :user => {}
+      response.should redirect_to(signin_path)
+      flash[:notice].should =~ /please/i
+    end
+
+  end
 end
 
 
