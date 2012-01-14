@@ -45,9 +45,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    if user.destroy
-      redirect_to(users_path, :notice => "#{user.name} has been deleted")
+    if @user.destroy
+      redirect_to(users_path, :notice => "#{@user.name} has been deleted")
     end
   end
 private
@@ -61,7 +60,7 @@ private
   end
 
   def admin_user
-    user = User.find params[:id]
-    redirect_to(root_path) if !current_user.admin? || current_user?(user)
+    @user = User.find params[:id]
+    redirect_to(root_path) if !current_user.admin? || current_user?(@user)
   end
 end
