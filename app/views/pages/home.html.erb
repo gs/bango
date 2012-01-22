@@ -5,11 +5,12 @@
         <h1 class="micropost">Whats up?</h1>
           <%= render "shared/micropost_form" %>
       </td>
+      <td class="sidebar round">
+      <%= render "shared/user_info" %>
+      </td>
     </tr>
   </table>
 <% else %>
-  <h1>Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
 
   <%= link_to "Sign up now!", signup_path, :class => "signin_button round" %>
 <% end -%>
