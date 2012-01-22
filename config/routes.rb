@@ -1,8 +1,13 @@
 Bango::Application.routes.draw do
 
+  get "microposts/create"
+
+  get "microposts/destory"
+
   root :to => "pages#home"
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :microposts, :only => [:create, :destroy]
 
   match "/contact" => "pages#contact"
   match "/about" => "pages#about"

@@ -45,6 +45,9 @@ module SessionsHelper
   end
 
 private
+  def authenticate
+      deny_access unless signed_in?
+  end
 
   def user_from_remembered_token
     User.authenticate_with_salt(*remembered_token)

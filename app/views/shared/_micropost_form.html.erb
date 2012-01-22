@@ -1,8 +1,9 @@
-<h1>Sign up</h1>
-
-<%= form_for @user do |f| -%>
+<%= form_for @micropost do |f| -%>
   <%= render "shared/error_messages", :object => f.object %>
-  <%= render 'fields', :f => f %>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
   <div class="actions">
     <%= f.submit "Submit", :disable_with => 'Submiting...' %>
   </div>
