@@ -58,8 +58,40 @@ describe MicropostsController do
         post :create, :micropost => @attr
         flash[:success].should =~ /well done/i
       end
+    end
+  end
 
+  describe "Delete 'destroy'" do
 
+    describe 'for an unathorized user' do
+
+      before(:each) do
+        @user = Factory(:user)
+        wrong_user = Factory(:user, :email => Factory.next(:email))
+        @micropost = Factory(:micropost, :user => @user)
+        test_sign_in(wrong_user)
+      end
+
+      it  "should deny access" do
+        delete :destroy, :id => @micropost
+        response.should redirect_to(root_path)
+      end
+    end
+
+    describe "for an authorized user" do
+      before(:each) do
+        @user = Factory(:user)
+        @micropost = Factory(:micropost, :user => @user)
+        test_sign_in(@user)
+      end
+
+      it  "should delete access" do
+        lambda do
+          delete :destroy, :id => @micropost
+          flash[:success].should =~ /deleted/i
+          response.should redirect_to(root_path)
+        end.should change(Micropost, :count).by(-1)
+      end
     end
   end
 
